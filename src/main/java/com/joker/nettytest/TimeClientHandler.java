@@ -34,17 +34,27 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
         // 创建一个内部积累缓冲区(internal cumulative buffer)
         // 等待所有的数据(本例数据大小为4 bytes)被接收到该缓冲区之后再处理数据
 
-        ByteBuf m = (ByteBuf) msg;
+        // ByteBuf m = (ByteBuf) msg;
         // 所有接收到的数据都会累积到buf中
-        buf.writeBytes(m);
-        m.release();
+        // buf.writeBytes(m);
+        // m.release();
 
         // 检查buf是否有足够的数据（该示例中是4个字节），然后处理相应的业务逻辑
         // 否则，当有更多数据到达时，Netty会再次调用channelRead()方法，最终将累加所有4个字节
-        if (buf.readableBytes() >= 4) {
-            long currentTimeMillis = (buf.readUnsignedInt() - 2208988800L) * 1000L;
+        // if (buf.readableBytes() >= 4) {
+        //     long currentTimeMillis = (buf.readUnsignedInt() - 2208988800L) * 1000L;
+        //     System.out.println(new Date(currentTimeMillis));
+        //     ctx.close();
+        // }
+
+        // The second solution
+        ByteBuf m = (ByteBuf) msg;
+        try {
+            long currentTimeMillis = (m.readUnsignedInt() - 2208988800L) * 1000L;
             System.out.println(new Date(currentTimeMillis));
             ctx.close();
+        } finally {
+            m.release();
         }
     }
 
