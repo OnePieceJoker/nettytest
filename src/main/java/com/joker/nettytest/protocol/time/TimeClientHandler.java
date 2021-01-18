@@ -1,4 +1,4 @@
-package com.joker.nettytest;
+package com.joker.nettytest.protocol.time;
 
 import java.util.Date;
 
@@ -48,14 +48,10 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
         // }
 
         // The second solution
-        ByteBuf m = (ByteBuf) msg;
-        try {
-            long currentTimeMillis = (m.readUnsignedInt() - 2208988800L) * 1000L;
-            System.out.println(new Date(currentTimeMillis));
-            ctx.close();
-        } finally {
-            m.release();
-        }
+        // use a POJO instead of a ByteBuf
+        UnixTime m = (UnixTime) msg;
+        System.out.println(m.toString());
+        ctx.close();
     }
 
     @Override

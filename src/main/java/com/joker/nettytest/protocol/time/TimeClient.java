@@ -1,4 +1,4 @@
-package com.joker.nettytest;
+package com.joker.nettytest.protocol.time;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -12,8 +12,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class TimeClient {
     
     public static void main(String[] args) throws Exception {
-        String host = args[0];
-        int port = Integer.parseInt(args[1]);
+        String host = "localhost";
+        int port = 8080;
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {

@@ -1,4 +1,4 @@
-package com.joker.nettytest;
+package com.joker.nettytest.protocol.time;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class TimeDecoder extends ByteToMessageDecoder {
         if (in.readableBytes() < 4) {
             return;
         }
-        out.add(in.readBytes(4));
+        out.add(new UnixTime(in.readUnsignedInt()));
     }
 }
 

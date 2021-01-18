@@ -1,4 +1,4 @@
-package com.joker.nettytest;
+package com.joker.nettytest.protocol.time;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
@@ -15,8 +15,8 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(final ChannelHandlerContext ctx) throws Exception {
         // 要发送新消息时，需要分配一个包含消息的新缓冲区
         // 通过ChannelHandlerContext.alloc()获取当前的ByteBufAllocator
-        final ByteBuf time = ctx.alloc().buffer(4);
-        time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+        // final ByteBuf time = ctx.alloc().buffer(4);
+        // time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
 
         // 什么是java.nio.ByteBuffer.flip()?
         // 这里为什么没有了java.nio.ByteBuffer.flip()?
@@ -35,19 +35,21 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         //     ch.close();
         // ------------------------
         // 因此，我们应该在ChannelFuture.write()方法完成后再调用close()方法
-        final ChannelFuture f = ctx.writeAndFlush(time);
+        // TODO Pipeline中ChannelHandler的执行顺序
+        // final ChannelFuture f = ctx.channel().writeAndFlush(new UnixTime());
+        final ChannelFuture f = ctx.writeAndFlush(new UnixTime());
         // 如何得知一个写请求完成了呢？
         // 我们可以添加一个listener来监听ChannelFuture的操作
         // 我们也可以使用预定义的侦听器简化代码
-        // f.addListener(ChannelFutureListener.CLOSE);
-        f.addListener(new ChannelFutureListener(){
+        f.addListener(ChannelFutureListener.CLOSE);
+        // f.addListener(new ChannelFutureListener(){
         
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                assert f == future;
-                ctx.close();
-            }
-        });
+        //     @Override
+        //     public void operationComplete(ChannelFuture future) throws Exception {
+        //         assert f == future;
+        //         ctx.close();
+        //     }
+        // });
     }
 
     @Override
