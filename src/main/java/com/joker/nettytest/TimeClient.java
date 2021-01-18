@@ -24,6 +24,7 @@ public class TimeClient {
             b.group(workerGroup);
             // 使用NioSocketChannel来创建客户端Channel
             b.channel(NioSocketChannel.class);
+            // 这里不使用childOption()，因为客户端SocketChannel没有父级
             b.option(ChannelOption.SO_KEEPALIVE, true);
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
@@ -32,7 +33,10 @@ public class TimeClient {
                 }
             });
 
+            // Start the client
             ChannelFuture f = b.connect(host, port).sync();
+
+            // Wait until the connection is closed.
             f.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();
