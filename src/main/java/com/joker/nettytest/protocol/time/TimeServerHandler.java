@@ -1,6 +1,5 @@
 package com.joker.nettytest.protocol.time;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,7 +34,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         //     ch.close();
         // ------------------------
         // 因此，我们应该在ChannelFuture.write()方法完成后再调用close()方法
-        // TODO Pipeline中ChannelHandler的执行顺序
+        // Pipeline中ChannelHandler的执行顺序
         // final ChannelFuture f = ctx.channel().writeAndFlush(new UnixTime());
         final ChannelFuture f = ctx.writeAndFlush(new UnixTime());
         // 如何得知一个写请求完成了呢？
