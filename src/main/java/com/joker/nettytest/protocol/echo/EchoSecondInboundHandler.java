@@ -26,6 +26,12 @@ public class EchoSecondInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("进入Second Inbound Handler method: channelReadComplete");
+        System.out.println("退出Second Inbound Handler method: channelReadComplete");
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();

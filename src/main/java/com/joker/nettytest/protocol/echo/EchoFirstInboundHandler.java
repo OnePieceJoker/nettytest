@@ -46,6 +46,14 @@ public class EchoFirstInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("进入First Inbound Handler method: channelReadComplete");
+        // 通过调用fire开头的相应的方法来进入到下一个相应的Handler处理的方法中
+        ctx.fireChannelReadComplete();
+        System.out.println("退出First Inbound Handler method: channelReadComplete");
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
