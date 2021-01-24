@@ -34,7 +34,8 @@ public class EchoFirstInboundHandler extends ChannelInboundHandlerAdapter {
             // 必须要调用fireChannelRead()方法来让之后注册的ChannelInboundHandler类型的HChannelRead()方法被调用
             // 执行该方法后，会去调用后续的Handler处理
             // ctx.write(buf);
-            ctx.fireChannelRead(Unpooled.copiedBuffer("From EchoFirstInboundHandler message:" + data, CharsetUtil.UTF_8));
+            super.channelRead(ctx, Unpooled.copiedBuffer("From EchoFirstInboundHandler message:" + data, CharsetUtil.UTF_8));
+            // ctx.fireChannelRead(Unpooled.copiedBuffer("From EchoFirstInboundHandler message:" + data, CharsetUtil.UTF_8));
             // ctx.write(buf);
             // 如果执行了write操作，则会直接在该InboundHandler后面去调用OutboundHandler
             // 知道所有OutboundHandler执行完毕后，才会去接着调用后续的InboundHandler
