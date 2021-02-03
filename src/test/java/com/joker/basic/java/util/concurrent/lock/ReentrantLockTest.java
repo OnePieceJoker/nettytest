@@ -1,4 +1,4 @@
-package com.joker.nettytest.basic.concurrent.lock;
+package com.joker.basic.java.util.concurrent.lock;
 
 import java.util.concurrent.locks.ReentrantLock;
 

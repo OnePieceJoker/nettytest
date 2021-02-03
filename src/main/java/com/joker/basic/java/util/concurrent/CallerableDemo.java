@@ -1,4 +1,4 @@
-package com.joker.nettytest.basic.concurrent;
+package com.joker.basic.java.util.concurrent;
 
 import java.util.ArrayList;
 import java.util.Date;
