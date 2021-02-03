@@ -8,6 +8,8 @@ public class ThreadLocalTest {
     
     private List<String> messages = new ArrayList<>(); 
 
+    private static final int HASH_INCREMENT = 0x61c88647;
+
     public static final ThreadLocal<ThreadLocalTest> holder = 
         ThreadLocal.withInitial(ThreadLocalTest::new);
 
@@ -27,13 +29,19 @@ public class ThreadLocalTest {
         // ThreadLocalTest.add("一枝红杏出墙来");
         // System.out.println(holder.get().messages);
         // ThreadLocalTest.clear();
-        Thread t = new Thread(() -> test("abc", false));
-        t.start();
-        t.join();
-        System.out.println("---gc后---");
-        Thread t2 = new Thread(() -> test("def", true));
-        t2.start();
-        t2.join();
+        // Thread t = new Thread(() -> test("abc", false));
+        // t.start();
+        // t.join();
+        // System.out.println("---gc后---");
+        // Thread t2 = new Thread(() -> test("def", true));
+        // t2.start();
+        // t2.join();
+        int hashCode = 0;
+        for (int i = 0; i < 16; i++) {
+            hashCode = i * HASH_INCREMENT + HASH_INCREMENT;
+            int bucket = hashCode & 15;
+            System.out.println(i + " 在桶中的位置：" + bucket);
+        }
     }
 
     private static void test(String s, boolean isGC) {
