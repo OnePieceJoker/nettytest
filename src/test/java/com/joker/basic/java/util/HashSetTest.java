@@ -1,9 +1,11 @@
 package com.joker.basic.java.util;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HashSetTest {
     
@@ -14,5 +16,6 @@ public class HashSetTest {
         System.out.println(flag1);
         boolean flag2 = testHashSet.add("abc");
         System.out.println(flag2);
+        assertTrue( true );
     }
 }

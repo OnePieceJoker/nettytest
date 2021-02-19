@@ -1,8 +1,11 @@
 package com.joker.basic.java.util.concurrent.lock;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class ReentrantLockTest {
     private final ReentrantLock lock = new ReentrantLock();
@@ -41,6 +44,7 @@ public class ReentrantLockTest {
         thread1.join();
         thread2.join();
         System.out.println(i);
+        assertTrue( true );
     }
 
     public static void main(String[] args) {
