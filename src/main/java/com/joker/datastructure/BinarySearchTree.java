@@ -7,12 +7,13 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         int[] nums = {15, 18, 17, 20, 6, 3, 2, 4, 7, 13, 9};
         initBinarySearchTree(nums);
-        inorderTreeWalk(root);
         anotherTreeWalk(root);
-        Node node = treeSearch(root, 18);
-        treeDelete(root, node);
-        System.out.println();
-        inorderTreeWalk(root);
+        Node node = treeSearch(root, 13);
+        Node successorNode = treeSuccessor(node);
+        System.out.println(successorNode.value);
+        node = treeSearch(root, 7);
+        Node predecessorNode = treePredecessor(node);
+        System.out.println(predecessorNode.value);
     }
     
     static class Node {
@@ -171,6 +172,23 @@ public class BinarySearchTree {
             successorNode = node.pre;
         }
         return successorNode;
+    }
+
+    /**
+     * 二叉搜索树：获取结点的前驱结点
+     * @param node
+     * @return
+     */
+    static Node treePredecessor(Node node) {
+        if (node.left != null) {
+            return treeMaximum(node.left);
+        }
+        Node predecessorNode = node.pre;
+        while (predecessorNode != null && node == predecessorNode.left) {
+            node = predecessorNode;
+            predecessorNode = node.pre;
+        }
+        return predecessorNode;
     }
 
     /**
